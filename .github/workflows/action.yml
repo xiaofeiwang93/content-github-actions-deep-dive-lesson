@@ -1,6 +1,6 @@
 name: Deploy my Lambda Function
 
-on:
+on: 
   push:
     branches:
       - main
@@ -11,20 +11,20 @@ jobs:
     steps:
       - name: Check out code
         uses: actions/checkout@v2
-      - name: Set up python
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-verion: 3.8
+          python-version: 3.8
       - name: Install libraries
-        run: 
+        run: |
             cd function
             python -m pip install --upgrade pip
-            if [ -f requirements.txt ]; then pip install -r requriements.txt -t .; fi
+            if [ -f requirements.txt ]; then pip install -r requirements.txt -t .; fi
       - name: Create zip bundle
-        run: 
+        run: |
             cd function
             zip -r ../${{ github.sha }}.zip .
-      - name: Archieve artifact
+      - name: Archive artifact
         uses: actions/upload-artifact@v2
         with:
           name: zipped-bundle
